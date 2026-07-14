@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -79,12 +80,53 @@ public class FilenameConventionsMojo extends AbstractMojo {
         assertNotEmpty(pattern, "No patterns were specified");
 
         List<Pattern> result = new ArrayList<>();
-        for (String regex : pattern) {
+        for (int i = 0; i < pattern.length; i++) {
+            String regex = pattern[i];
             assertNotEmpty(regex, "Empty pattern was given");
-            result.add(Pattern.compile(regex));
+            try {
+                result.add(Pattern.compile(regex));
+            } catch (PatternSyntaxException e) {
+                String combinedRegex = tryCombineSplitPatterns(i);
+                if (combinedRegex != null) {
+                    result.add(Pattern.compile(combinedRegex));
+                    i += countCombinedPatterns(i);
+                } else {
+                    throw e;
+                }
+            }
         }
 
         return result;
+    }
+
+    private String tryCombineSplitPatterns(int startIndex) {
+        StringBuilder sb = new StringBuilder(pattern[startIndex]);
+        int endIndex = startIndex;
+        for (int i = startIndex + 1; i < pattern.length; i++) {
+            sb.append(',').append(pattern[i]);
+            try {
+                Pattern.compile(sb.toString());
+                return sb.toString();
+            } catch (PatternSyntaxException e) {
+                continue;
+            }
+        }
+        return null;
+    }
+
+    private int countCombinedPatterns(int startIndex) {
+        StringBuilder sb = new StringBuilder(pattern[startIndex]);
+        int count = 1;
+        for (int i = startIndex + 1; i < pattern.length; i++) {
+            sb.append(',').append(pattern[i]);
+            try {
+                Pattern.compile(sb.toString());
+                return count;
+            } catch (PatternSyntaxException e) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private static <E> void assertNotEmpty(E[] array, String message) {

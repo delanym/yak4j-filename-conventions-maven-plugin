@@ -28,26 +28,26 @@
   </scm>
   <properties>
     <assertj-bom.version>3.27.7</assertj-bom.version>
-    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     <jacoco.it-tests.limit.branch-ratio>89%</jacoco.it-tests.limit.branch-ratio>
     <jacoco.it-tests.limit.class-complexity>16</jacoco.it-tests.limit.class-complexity>
     <jacoco.it-tests.limit.instruction-ratio>95%</jacoco.it-tests.limit.instruction-ratio>
     <jacoco.it-tests.limit.method-complexity>5</jacoco.it-tests.limit.method-complexity>
     <jacoco.unit-tests.limit.instruction-ratio>25%</jacoco.unit-tests.limit.instruction-ratio>
     <java.version>25</java.version>
-    <junit.version>6.0.3</junit.version>
-    <maven-core.version>3.9.14</maven-core.version>
+    <junit.version>6.1.2</junit.version>
+    <maven-core.version>3.9.16</maven-core.version>
     <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
     <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
-    <maven-invoker-plugin.version>3.9.1</maven-invoker-plugin.version>
+    <maven-invoker-plugin.version>3.10.1</maven-invoker-plugin.version>
     <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-plugin-plugin.version>3.15.2</maven-plugin-plugin.version>
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
-    <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
-    <palantir.version>2.39.0</palantir.version>
+    <palantir.version>2.96.0</palantir.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spotless-maven-plugin.version>3.4.0</spotless-maven-plugin.version>
+    <spotless-maven-plugin.version>3.8.0</spotless-maven-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -121,7 +121,6 @@
           <artifactId>spotless-maven-plugin</artifactId>
           <version>${spotless-maven-plugin.version}</version>
           <configuration>
-            <ratchetFrom>origin/master</ratchetFrom>
             <java>
               <palantirJavaFormat>
                 <version>${palantir.version}</version>

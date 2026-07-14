@@ -28,6 +28,7 @@
   </scm>
   <properties>
     <assertj-bom.version>3.27.7</assertj-bom.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
     <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     <jacoco.it-tests.limit.branch-ratio>89%</jacoco.it-tests.limit.branch-ratio>
     <jacoco.it-tests.limit.class-complexity>16</jacoco.it-tests.limit.class-complexity>
@@ -46,6 +47,7 @@
     <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
     <palantir.version>2.96.0</palantir.version>
+    <plexus-utils.version>4.0.2</plexus-utils.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spotless-maven-plugin.version>3.8.0</spotless-maven-plugin.version>
   </properties>
@@ -71,12 +73,12 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.20.0</version>
+      <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>4.0.2</version>
+      <version>${plexus-utils.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>

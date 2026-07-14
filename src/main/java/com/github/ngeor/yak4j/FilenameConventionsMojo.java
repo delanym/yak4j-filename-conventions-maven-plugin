@@ -18,7 +18,7 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  * A mojo that checks filename conventions.
  */
-@Mojo(name = "check", defaultPhase = LifecyclePhase.VALIDATE)
+@Mojo(name = "check", defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true)
 public class FilenameConventionsMojo extends AbstractMojo {
     @Parameter(required = true)
     private File directory;

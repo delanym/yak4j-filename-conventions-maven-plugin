@@ -32,6 +32,9 @@ public class FilenameConventionsMojo extends AbstractMojo {
     @Parameter(required = true)
     private String[] pattern;
 
+    @Parameter(required = false)
+    private boolean joinComma;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Log log = getLog();
@@ -79,9 +82,16 @@ public class FilenameConventionsMojo extends AbstractMojo {
         assertNotEmpty(pattern, "No patterns were specified");
 
         List<Pattern> result = new ArrayList<>();
-        for (String regex : pattern) {
-            assertNotEmpty(regex, "Empty pattern was given");
+
+        if (joinComma) {
+            String regex = String.join(",", pattern);
+            assertNotEmpty(regex, "No patterns were specified");
             result.add(Pattern.compile(regex));
+        } else {
+            for (String regex : pattern) {
+                assertNotEmpty(regex, "Empty pattern was given");
+                result.add(Pattern.compile(regex));
+            }
         }
 
         return result;

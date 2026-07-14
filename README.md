@@ -12,7 +12,7 @@ A Maven plugin which enforces filename conventions.
 <plugin>
   <groupId>com.github.ngeor</groupId>
   <artifactId>yak4j-filename-conventions-maven-plugin</artifactId>
-  <version>0.18.5</version>
+  <version>0.19.0</version>
 </plugin>
 ```
 
@@ -49,12 +49,13 @@ The following execution will ensure that all SQL scripts in the
 
 ### Configuration
 
-| Parameter | Type     | Required | Description                                                      |
-| --------- | -------- | :------: | ---------------------------------------------------------------- |
-| directory | String   |   yes    | The root directory to search files                               |
-| includes  | String[] |   yes    | A pattern that determines which files will be included           |
-| excludes  | String[] |    no    | An optional pattern that determines which files will be excluded |
-| pattern   | String[] |   yes    | A regular expression that much match the filenames of the files  |
+| Parameter | Type     | Required | Description                                                                 |
+| --------- | -------- | :------: | --------------------------------------------------------------------------- |
+| directory | String   |   yes    | The root directory to search files                                          |
+| includes  | String[] |   yes    | A pattern that determines which files will be included                      |
+| excludes  | String[] |    no    | An optional pattern that determines which files will be excluded            |
+| pattern   | String[] |   yes    | A regular expression that much match the filenames of the files             |
+| joinComma | boolean  |    no    | Set to true as a workaround for regex with commas, which Maven breaks apart |
 
 The array parameters can be specified in two ways:
 
@@ -77,3 +78,10 @@ then the regular expression will need to match `abc/def.txt`.
 
 If multiple patterns are specified, the matching filenames will need to comply
 to at least one of the patterns.
+
+Maven intercepts commas in the pattern and treats it as multiple entries.
+So this expression `[0-9]{2,3}` is by default interpreted as two separate
+patterns `[0-9]{2` and `3}`, which does not work. In that case,
+set the property `joinComma` to `true`. All parsed patterns will be joined
+back together into one, separated by comma, resulting in the originally
+intended expression.
